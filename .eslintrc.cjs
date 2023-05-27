@@ -11,6 +11,7 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     "react/jsx-uses-react": "error",   
-     "react/jsx-uses-vars": "error" 
+     "react/jsx-uses-vars": "error",
+     "react/prop-types": "off"
   },
 }
