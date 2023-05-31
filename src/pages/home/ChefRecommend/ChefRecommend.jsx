@@ -4,6 +4,7 @@ import img1 from "../../../assets/menu/salad-bg.jpg";
 import img2 from "../../../assets/menu/pizza-bg.jpg";
 import img3 from "../../../assets/menu/soup-bg.jpg";
 import Button from "../../../components/Button/Button";
+import FoodCard from "../../../components/FoodCard/FoodCard";
 
 const ChefRecommend = () => {
   return (
@@ -13,6 +14,7 @@ const ChefRecommend = () => {
         heading="Chef Recommends"
       ></SectionTitle>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+        {/* <FoodCard img={img1} title="Caeser Salad"></FoodCard> */}
         <div className="bg-base-200 rounded-none">
           <img src={img1} alt="Menu" />
           <div className="card-body p-3 items-center text-center">

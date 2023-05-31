@@ -3,8 +3,10 @@ import SectionTitle from "../../components/sectionTitle/SectionTitle";
 import MenuItem from "../../components/MenuItem/MenuItem";
 import Button from "../../components/Button/Button";
 import Cover from "../../shared/cover/Cover";
+import { Link } from "react-router-dom";
 
 const MenuCategory = ({ items, title, img, subHeading, heading }) => {
+  // console.log(title)
   return (
     <div>
       {title && <Cover img={img} title={title}></Cover>}
@@ -16,9 +18,9 @@ const MenuCategory = ({ items, title, img, subHeading, heading }) => {
           <MenuItem key={menu._id} menu={menu}></MenuItem>
         ))}
       </div>
-      <div className="text-center">
+      <Link to={`/shop/${title}`} className="text-center">
         <Button>ORDER YOUR FAVOURITE FOOD</Button>
-      </div>
+      </Link>
     </div>
   );
 };
