@@ -25,7 +25,7 @@ const Header = () => {
         <Link to="/secret">Secret</Link>
       </li>
       <li>
-        <Link to="/secret">
+        <Link to="/dashboard/myCart">
           <button className="btn btn-warning">
             <FaShoppingCart className='text-white'></FaShoppingCart>
             <div className="badge badge-primary ms-2">+{cart?.length || 0}</div>
