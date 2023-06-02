@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 
 const Header = () => {
-  const {user} = useContext(AuthContext)
-  // console.log(user)
+  const {user, logOut} = useContext(AuthContext)
+  const handleLogout = () => {
+    logOut()
+  }
   const navItems = (
     <>
       <li>
@@ -17,7 +19,7 @@ const Header = () => {
         <Link to='/shop/salad'>Our Shop</Link>
       </li>
       <li>
-        <Link to='/login'>Log in</Link>
+        {user ? <button onClick={handleLogout}>Log out</button> : <Link to='/login'>Log in</Link>}
       </li>
     </>
   );
