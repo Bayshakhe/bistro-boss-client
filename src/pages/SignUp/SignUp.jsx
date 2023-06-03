@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext } from "react";
 import loginBg from "../../assets/others/authentication.png";
 import loginImg from "../../assets/others/authentication2.png";
 import { Link, useNavigate } from "react-router-dom";
@@ -23,15 +23,29 @@ const SignUp = () => {
         console.log(result.user);
         updateUserProfile(name, photo)
           .then(() => {
-            Swal.fire({
-              title: "User Signup Successfull.",
-              showClass: {
-                popup: "animate__animated animate__fadeInDown",
+            const savedUser = {name, email}
+            fetch('http://localhost:5000/users', {
+              method: 'POST',
+              headers: {
+                'content-type': 'application/json'
               },
-              hideClass: {
-                popup: "animate__animated animate__fadeOutUp",
-              },
-            });
+              body: JSON.stringify(savedUser)
+            })
+            .then(res => res.json())
+            .then(data => {
+              if(data.insertedId){
+                form.reset()
+                Swal.fire({
+                  title: "User Signup Successfull.",
+                  showClass: {
+                    popup: "animate__animated animate__fadeInDown",
+                  },
+                  hideClass: {
+                    popup: "animate__animated animate__fadeOutUp",
+                  },
+                });
+              }
+            })
             logOut()
               .then(() => {
                 navigate("/login");
