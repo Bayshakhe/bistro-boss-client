@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 const MyCart = () => {
   const [cart, refetch] = useCart();
   console.log(cart);
-  const total = cart.reduce((sum, item) => item.price + sum, 0);
+  const total = cart?.reduce((sum, item) => item.price + sum, 0);
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -48,7 +48,7 @@ const MyCart = () => {
             </tr>
           </thead>
           <tbody>
-            {cart.map((item, index) => (
+            {cart?.map((item, index) => (
               <tr key={item._id}>
                 <td>{index + 1}</td>
                 <td>

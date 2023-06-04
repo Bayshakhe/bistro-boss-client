@@ -8,11 +8,13 @@ import { ImSpoonKnife } from 'react-icons/im';
 import { FaBars,FaBook } from 'react-icons/fa';
 import { BsPeopleFill } from 'react-icons/bs';
 import useCart from "../../hooks/useCart";
+import useAdmin from "../../hooks/useAdmin";
 
 
 const Dashboard = () => {
   const [cart] = useCart()
-  const [isAdmin, setIsAdmin] = useState(false)
+  // const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin] = useAdmin()
   return (
     <div className="drawer lg:drawer-mobile">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -28,7 +30,7 @@ const Dashboard = () => {
       <div className="drawer-side">
         <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
         {
-          isAdmin ? <ul className="menu p-4 w-80 h-full bg-[#D1A054] text-base-content">
+          !isAdmin ? <ul className="menu p-4 w-80 h-full bg-[#D1A054] text-base-content">
           {/* Sidebar content here */}
           <li className="uppercase text-xl mb-8">
             <p className="font-bold text-2xl mb-0 pb-0">BISTRO BOSS </p>

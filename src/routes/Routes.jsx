@@ -10,6 +10,8 @@ import Secret from "../pages/Secret/Secret";
 import Dashboard from "../Layouts/Dashboard/Dashboard";
 import MyCart from "../Layouts/Dashboard/MyCart";
 import AllUsers from "../Layouts/Dashboard/AllUsers";
+import AdminRoute from "./AdminRoute";
+import AddItem from "../Layouts/Dashboard/AddItem";
 
   const router = createBrowserRouter([
     {
@@ -53,6 +55,10 @@ import AllUsers from "../Layouts/Dashboard/AllUsers";
         {
           path: 'allUsers',
           element: <AllUsers></AllUsers>
+        },
+        {
+          path: 'addItem',
+          element: <AdminRoute><AddItem></AddItem></AdminRoute>
         },
       ]
     }
