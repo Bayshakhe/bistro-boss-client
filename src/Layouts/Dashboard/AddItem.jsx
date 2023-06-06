@@ -1,11 +1,48 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../components/sectionTitle/SectionTitle";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+
+const img_hosting_token = import.meta.env.VITE_Image_Upload_Token;
 
 const AddItem = () => {
+  const [axiosSecure] = useAxiosSecure()
   const { register, handleSubmit, reset } = useForm();
+  const imgHostingURL = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
 
-  const onSubmit = (data) => {};
+  const onSubmit = (data) => {
+    const formData = new FormData()
+    formData.append('image', data.image[0])
+
+    fetch(imgHostingURL,{
+      method: 'POST',
+      body: formData
+    })
+    .then(res => res.json())
+    .then(imgResponse => {
+      // console.log(imgResponse)
+      if(imgResponse.success){
+        const imgUrl = imgResponse.data.display_url;
+        const {name,recipe, category, price} = data;
+        const newItem = {name, recipe, category, price: parseFloat(price), image: imgUrl}
+        // console.log(newItem)
+        axiosSecure.post('/menu', newItem)
+        .then(data => {
+          if(data.data.insertedId){
+            reset()
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Your work has been saved',
+              showConfirmButton: false,
+              timer: 1500
+            })
+          }
+        })
+      }
+    })
+  };
 
   return (
     <div className="w-full px-10">

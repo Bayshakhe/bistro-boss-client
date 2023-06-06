@@ -2,6 +2,7 @@ import React from "react";
 import useCart from "../../hooks/useCart";
 import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const MyCart = () => {
   const [cart, refetch] = useCart();
@@ -33,10 +34,13 @@ const MyCart = () => {
   };
   return (
     <div>
-      <p className="text-3xl uppercase">Total Items: {cart.length}</p>
-      <p className="text-3xl uppercase">Total Price: ${total}</p>
-      <div className="overflow-x-auto">
-        <table className="table table-w-full mt-4">
+      <div className="grid grid-cols-3 gap-5">
+      <p className="text-2xl font-semibold uppercase">Total Items: {cart.length}</p>
+      <p className="text-2xl font-semibold uppercase">Total Price: ${total}</p>
+      <Link to={'/dashboard/payment'} className="btn ml-12">Payment</Link>
+      </div>
+      <div className="overflow-x-auto w-full">
+        <table className="table w-full mt-4">
           {/* head */}
           <thead>
             <tr>
