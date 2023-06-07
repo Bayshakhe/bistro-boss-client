@@ -14,6 +14,8 @@ import AdminRoute from "./AdminRoute";
 import AddItem from "../Layouts/Dashboard/AddItem";
 import ManageItems from "../Layouts/Dashboard/ManageItems";
 import Payment from "../Layouts/Dashboard/Payment";
+import AdminHome from "../Layouts/Dashboard/AdminHome";
+import UserHome from "../Layouts/Dashboard/UserHome";
 
   const router = createBrowserRouter([
     {
@@ -50,6 +52,11 @@ import Payment from "../Layouts/Dashboard/Payment";
       path: "/dashboard",
       element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
       children: [
+        // user dashboard
+        {
+          path: 'userHome',
+          element: <UserHome></UserHome>
+        },
         {
           path: 'myCart',
           element: <MyCart></MyCart>
@@ -57,6 +64,12 @@ import Payment from "../Layouts/Dashboard/Payment";
         {
           path: 'payment',
           element: <Payment></Payment>
+        },
+
+        // admin dashboard
+        {
+          path: 'adminHome',
+          element: <AdminHome></AdminHome>
         },
         {
           path: 'allUsers',

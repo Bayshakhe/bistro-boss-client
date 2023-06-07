@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AiFillHome } from 'react-icons/ai';
 import { FaWallet,FaShoppingCart,FaRegCalendarAlt } from 'react-icons/fa';
@@ -13,12 +13,11 @@ import useAdmin from "../../hooks/useAdmin";
 
 const Dashboard = () => {
   const [cart] = useCart()
-  // const [isAdmin, setIsAdmin] = useState(false)
   const [isAdmin] = useAdmin()
   return (
     <div className="drawer lg:drawer-mobile">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content flex flex-col items-center justify-center">
+      <div className="drawer-content flex p-5">
         <Outlet></Outlet>
         <label
           htmlFor="my-drawer-2"
@@ -38,7 +37,7 @@ const Dashboard = () => {
           </li>
           <li className="flex">
           <NavLink
-            to='/dashboard/home'
+            to='/dashboard/userHome'
             className={({isActive}) =>
               isActive ? "text-white uppercase " : "uppercase"
             }

@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../provider/AuthProvider";
 import { FaShoppingCart } from 'react-icons/fa';
 import useCart from "../../hooks/useCart";
+import useAdmin from "../../hooks/useAdmin";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
   const [cart] = useCart()
+  const [isAdmin] = useAdmin()
   const handleLogout = () => {
     logOut();
   };
@@ -22,7 +24,7 @@ const Header = () => {
         <Link to="/shop/salad">Our Shop</Link>
       </li>
       <li>
-        <Link to="/secret">Secret</Link>
+        <Link to={isAdmin ? "/dashboard/adminHome" : "/dashboard/userHome"}>Dashboard</Link>
       </li>
       <li>
         <Link to="/dashboard/myCart">
@@ -34,7 +36,7 @@ const Header = () => {
       </li>
       <li>
         {user ? (
-          <button onClick={handleLogout}>Log out</button>
+          <Link onClick={handleLogout}>Log out</Link>
         ) : (
           <Link to="/login">Log in</Link>
         )}

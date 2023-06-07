@@ -8,7 +8,7 @@ import useCart from "../../hooks/useCart";
 const stripePromise = loadStripe(import.meta.env.VITE_Payment_Gateway_pk);
 
 const Payment = () => {
-  const [cart] = useCart();
+  const [cart, refetch] = useCart();
   const total = cart.reduce((sum, item) => sum + item.price, 0);
   const price = parseFloat(total.toFixed(2));
 //   console.log(price);
@@ -20,7 +20,7 @@ const Payment = () => {
       ></SectionTitle>
       {price && (
         <Elements stripe={stripePromise}>
-          <CheckoutForm price={price}></CheckoutForm>
+          <CheckoutForm refetch={refetch} cart={cart} price={price}></CheckoutForm>
         </Elements>
       )}
     </div>
