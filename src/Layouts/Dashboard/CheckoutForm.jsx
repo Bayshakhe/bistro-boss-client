@@ -1,10 +1,25 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import { useEffect } from "react";
+import useAuth from "../../hooks/useAuth";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({price}) => {
   const stripe = useStripe();
   const elements = useElements();
+  const {user} = useAuth()
+  const [axiosSecure] = useAxiosSecure()
   const [cardError, setCardError] = useState("");
+  const [clientSecret, setClientSecret] = useState('')
+  // console.log(price)
+
+  useEffect(()=>{
+    axiosSecure.post('/create-payment-intend', {price})
+    .then(res => {
+      console.log(res.data.clientSecret)
+      setClientSecret(res.data.clientSecret)
+    })
+  },[])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,7 +44,25 @@ const CheckoutForm = () => {
       console.log("payment method", paymentMethod);
       setCardError("");
     }
+
+    const {paymentIntent, error: confirmError} = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user?.displayName || 'unknown',
+            email: user?.email || 'unknown'
+          }
+        }
+      }
+    )
+    if(confirmError){
+      console.log(confirmError)
+    }
+    console.log(paymentIntent)
   };
+
   return (
     <div>
       <form onSubmit={handleSubmit} className="w-2/3 mx-auto">
@@ -52,7 +85,7 @@ const CheckoutForm = () => {
         <button
           className="btn btn-sm mt-5 px-5"
           type="submit"
-          disabled={!stripe}
+          disabled={!stripe || !clientSecret}
         >
           Pay
         </button>
